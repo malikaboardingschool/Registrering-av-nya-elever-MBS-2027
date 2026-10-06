@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran Santri Baru - Malika Islamic Boarding School</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .form-section { display: none; }
+        .receipt-section { display: none; }
+        .payment-section { display: none; }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <img src="https://iili.io/FsLlXA7.png" alt="Logo Malika Islamic Boarding School" class="h-12 mr-4">
+                <div>
+                    <h1 class="text-xl font-bold text-blue-800">Malika Islamic Boarding School</h1>
+                    <p class="text-sm text-gray-500">Penerimaan Santri Baru 2027/2028</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+
+        <!-- Payment Section -->
+        <div id="payment-section" class="payment-section bg-white p-8 rounded-lg shadow-lg max-w-2xl mx-auto">
+            <h2 class="text-2xl font-bold text-center text-blue-800 mb-2">Langkah 1: Pembayaran Formulir</h2>
+            <p class="text-center text-gray-600 mb-4">Silakan lakukan pembayaran biaya pendaftaran melalui transfer ke rekening berikut.</p>
+            
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6 rounded-r-lg text-center shadow-sm">
+                <p class="text-sm text-yellow-800 font-medium mb-1">Mohon transfer TEPAT sesuai nominal di bawah ini (hingga 3 digit terakhir) agar sistem dapat mengenali pembayaran Anda:</p>
+                <p class="text-4xl font-extrabold text-blue-900 my-2 tracking-tight">Rp <span id="nominal-display">500.000</span></p>
+            </div>
+
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6 text-center">
+                <p class="text-lg font-semibold text-blue-900">Bank Danamon</p>
+                <div class="flex items-center justify-center my-2 group">
+                    <p id="account-number" class="text-2xl font-bold text-blue-900 mr-3 tracking-wider">008800328612</p>
+                    <button id="copy-btn" class="bg-blue-200 text-blue-800 px-3 py-1.5 rounded-lg text-sm font-semibold hover:bg-blue-300 transition-all duration-200 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard mr-2" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
+                        <span id="copy-text">Salin</span>
+                    </button>
+                </div>
+                <p class="text-md text-gray-700">a.n. <strong>Malika Islamic School</strong></p>
+            </div>
+
+            <div class="mt-6 mb-6">
+                <label for="payment-proof" class="block text-sm font-medium text-gray-700 text-center">Nama Calon Santri HARUS disertakan diberita transfer, contoh : Pembayaran Formulir an. Siti Maryam <span class="text-red-500">*</span></label>
+                <input type="file" id="payment-proof" name="payment_proof" accept="image/png, image/jpeg, image/jpg" required class="mt-2 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 mx-auto max-w-xs">
+                <p id="file-error" class="text-red-500 text-sm text-center mt-1 hidden">Silakan unggah bukti pembayaran.</p>
+            </div>
+            <div class="text-center">
+                <button id="payment-confirm-btn" class="bg-blue-700 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-800 transition duration-300 shadow-md">Unggah Bukti Pembayaran</button>
+            </div>
+        </div>
+
+        <!-- Biodata Form Section -->
+        <div id="form-section" class="form-section bg-white p-8 rounded-lg shadow-lg max-w-4xl mx-auto">
+            <h2 class="text-2xl font-bold text-center text-blue-800 mb-6">Langkah 2: Formulir Pendaftaran</h2>
+            <form id="registration-form">
+                <!-- Hidden input untuk menyimpan nominal unik -->
+                <input type="hidden" id="nominal_transfer" name="nominal_transfer" value="">
+
+                <div class="border-b pb-6 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">A. Data Calon Santri & Kontak Utama</h3>
+                    <div class="mb-6 bg-blue-50 border-l-4 border-blue-300 p-4 rounded-r-lg space-y-4">
+                        <div>
+                            <label for="email_utama" class="block text-sm font-medium text-gray-800">Email Orang tua (Untuk Informasi PSB) <span class="text-red-500">*</span></label>
+                            <input type="email" id="email_utama" name="email_utama" placeholder="Contoh: orangtua@email.com" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="kontak_utama_wa" class="block text-sm font-medium text-gray-800">Nomor WhatsApp Ayah/Bunda (Untuk Informasi PSB) <span class="text-red-500">*</span></label>
+                            <input type="tel" id="kontak_utama_wa" name="kontak_utama_wa" placeholder="Contoh: 081234567890" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <p class="pt-2 text-xs text-gray-600">Semua informasi pendaftaran (jadwal tes, hasil seleksi, dll.) akan dikirim ke Email atau WhatsApp utama ini.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="jenjang" class="block text-sm font-medium text-gray-700">Pilihan Jenjang Pendidikan <span class="text-red-500">*</span></label>
+                            <select id="jenjang" name="jenjang" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"><option value="" disabled selected>-- Pilih Jenjang --</option><option value="SMP">SMP</option><option value="SMA">SMA</option></select>
+                        </div>
+                        <div>
+                            <label for="nama_lengkap" class="block text-sm font-medium text-gray-700">Nama Lengkap <span class="text-red-500">*</span></label>
+                            <input type="text" id="nama_lengkap" name="nama_lengkap" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                         <div>
+                            <label for="jenis_kelamin" class="block text-sm font-medium text-gray-700">Jenis Kelamin <span class="text-red-500">*</span></label>
+                            <select id="jenis_kelamin" name="jenis_kelamin" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"><option value="" disabled selected>-- Pilih Jenis Kelamin --</option><option value="Laki-laki">Laki-laki</option><option value="Perempuan">Perempuan</option></select>
+                        </div>
+                        <div>
+                            <label for="pas_foto" class="block text-sm font-medium text-gray-700">Pas Foto <span class="text-red-500">*</span></label>
+                            <input type="file" id="pas_foto" name="pas_foto" accept="image/png, image/jpeg, image/jpg" required class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                        </div>
+                        <div>
+                            <label for="nisn" class="block text-sm font-medium text-gray-700">NISN</label>
+                            <input type="number" id="nisn" name="nisn" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <p class="mt-1 text-xs text-gray-500">Cek NISN di: <a href="https://nisn.data.kemdikbud.go.id/index.php/Cindex/formcaribynama" target="_blank" class="text-blue-600 hover:underline">nisn.data.kemdikbud.go.id</a></p>
+                        </div>
+                         <div>
+                            <label for="nik" class="block text-sm font-medium text-gray-700">NIK <span class="text-red-500">*</span></label>
+                            <input type="number" id="nik" name="nik" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="tempat_lahir" class="block text-sm font-medium text-gray-700">Tempat Lahir <span class="text-red-500">*</span></label>
+                                <input type="text" id="tempat_lahir" name="tempat_lahir" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            <div>
+                                <label for="tanggal_lahir" class="block text-sm font-medium text-gray-700">Tanggal Lahir <span class="text-red-500">*</span></label>
+                                <input type="date" id="tanggal_lahir" name="tanggal_lahir" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="sekolah_asal" class="block text-sm font-medium text-gray-700">Nama Sekolah Asal <span class="text-red-500">*</span></label>
+                            <input type="text" id="sekolah_asal" name="sekolah_asal" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 md:col-span-2">
+                            <div><label for="tinggi_badan" class="block text-sm font-medium text-gray-700">Tinggi Badan (cm)</label><input type="number" id="tinggi_badan" name="tinggi_badan" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"></div>
+                            <div><label for="berat_badan" class="block text-sm font-medium text-gray-700">Berat Badan (kg)</label><input type="number" id="berat_badan" name="berat_badan" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"></div>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <label for="alamat" class="block text-sm font-medium text-gray-700">Alamat Tempat Tinggal <span class="text-red-500">*</span></label>
+                        <textarea id="alamat" name="alamat" rows="3" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"></textarea>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+                        <input type="text" name="kelurahan" placeholder="Kelurahan / Desa" required class="px-3 py-2 border border-gray-300 rounded-md"><input type="text" name="kecamatan" placeholder="Kecamatan" required class="px-3 py-2 border border-gray-300 rounded-md"><input type="text" name="kabupaten" placeholder="Kabupaten/Kota" required class="px-3 py-2 border border-gray-300 rounded-md"><input type="text" name="provinsi" placeholder="Provinsi" required class="px-3 py-2 border border-gray-300 rounded-md">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4">B. Data Ayah</h3>
+                        <div class="space-y-4"><input type="text" name="ayah_nama" placeholder="Nama Ayah" required class="w-full px-3 py-2 border border-gray-300 rounded-md"><input type="tel" name="ayah_wa" placeholder="Nomor WhatsApp Ayah" required class="w-full px-3 py-2 border border-gray-300 rounded-md"><input type="text" name="ayah_pekerjaan" placeholder="Pekerjaan" class="w-full px-3 py-2 border border-gray-300 rounded-md"><select name="ayah_pendidikan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md"><option>Pendidikan</option><option>SD</option><option>SMP</option><option>SMA</option><option>D1-D3</option><option>S1</option><option>S2</option><option>S3</option></select><select name="ayah_penghasilan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md"><option>Penghasilan Bulanan</option><option>&lt; 1 Juta</option><option>1 - 3 Juta</option><option>3 - 5 Juta</option><option>5 - 10 Juta</option><option>&gt; 10 Juta</option></select></div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4">C. Data Ibu</h3>
+                        <div class="space-y-4"><input type="text" name="ibu_nama" placeholder="Nama Ibu" required class="w-full px-3 py-2 border border-gray-300 rounded-md"><input type="tel" name="ibu_wa" placeholder="Nomor WhatsApp Ibu" class="w-full px-3 py-2 border border-gray-300 rounded-md"><input type="text" name="ibu_pekerjaan" placeholder="Pekerjaan" class="w-full px-3 py-2 border border-gray-300 rounded-md"><select name="ibu_pendidikan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md"><option>Pendidikan</option><option>SD</option><option>SMP</option><option>SMA</option><option>D1-D3</option><option>S1</option><option>S2</option><option>S3</option></select><select name="ibu_penghasilan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md"><option>Penghasilan Bulanan</option><option>&lt; 1 Juta</option><option>1 - 3 Juta</option><option>3 - 5 Juta</option><option>5 - 10 Juta</option><option>&gt; 10 Juta</option></select></div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4">D. Data Wali (Jika Ada)</h3>
+                        <div class="space-y-4"><input type="text" name="wali_nama" placeholder="Nama Wali" class="w-full px-3 py-2 border border-gray-300 rounded-md"><input type="email" name="wali_email" placeholder="Email Wali" class="w-full px-3 py-2 border border-gray-300 rounded-md"><input type="text" name="wali_pekerjaan" placeholder="Pekerjaan" class="w-full px-3 py-2 border border-gray-300 rounded-md"><select name="wali_pendidikan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md"><option>Pendidikan</option><option>SD</option><option>SMP</option><option>SMA</option><option>D1-D3</option><option>S1</option><option>S2</option><option>S3</option></select><select name="wali_penghasilan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md"><option>Penghasilan Bulanan</option><option>&lt; 1 Juta</option><option>1 - 3 Juta</option><option>3 - 5 Juta</option><option>5 - 10 Juta</option><option>&gt; 10 Juta</option></select></div>
+                    </div>
+                </div>
+
+                <div class="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <div class="flex items-start">
+                        <div class="flex items-center h-5 mt-0.5">
+                            <input id="persetujuan" name="persetujuan" type="checkbox" value="Setuju" required class="w-5 h-5 text-blue-600 bg-white border-gray-300 rounded focus:ring-blue-500 cursor-pointer">
+                        </div>
+                        <label for="persetujuan" class="ml-3 text-sm text-gray-700 leading-relaxed cursor-pointer">
+                            Saya memahami bahwa dana formulir pendaftaran yang telah dibayarkan tidak dapat dikembalikan (<em>non-refundable</em>) apabila calon santri dinyatakan tidak lulus/tidak diterima dalam proses seleksi penerimaan santri baru.<br>
+                            <span class="font-semibold text-gray-800">Dengan ini, saya menyatakan setuju dan menerima ketentuan tersebut. <span class="text-red-500">*</span></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mt-8 text-center">
+                    <button type="submit" id="submit-btn" class="bg-blue-700 text-white font-bold py-3 px-10 rounded-lg hover:bg-blue-800 transition duration-300 shadow-md flex items-center justify-center mx-auto">
+                        <span id="submit-btn-text">Kirim Pendaftaran</span>
+                        <div id="submit-loader" class="loader hidden ml-3"></div>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Receipt Section -->
+        <div id="receipt-section" class="receipt-section">
+            <div id="receipt-printable" class="bg-white p-8 rounded-lg shadow-lg max-w-3xl mx-auto">
+                <div class="text-center border-b-2 border-dashed pb-4 mb-4">
+                    <img src="https://iili.io/FsLlXA7.png" alt="Logo" class="h-20 mx-auto mb-2">
+                    <h2 class="text-2xl font-bold text-blue-800">Bukti Rangkaian Pendaftaran Santri Baru</h2>
+                    <p class="text-gray-600">Malika Islamic Boarding School</p>
+                </div>
+                <div class="text-center bg-blue-50 p-4 rounded-lg mb-6">
+                    <p class="text-gray-700">Nomor Registrasi Anda:</p>
+                    <p id="receipt-reg-num" class="text-3xl font-bold text-blue-900 tracking-wider"></p>
+                    <p class="text-sm mt-2">Harap simpan nomor ini untuk proses selanjutnya.</p>
+                </div>
+
+                <h3 class="font-semibold text-gray-800 mb-2 text-lg">Detail Pendaftar:</h3>
+                <div id="receipt-data" class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 text-gray-700"></div>
+                 <div class="mt-6 border-t pt-4">
+                    <p class="font-semibold">Status Pendaftaran:</p>
+                    <p class="text-green-600 font-bold text-lg">BERHASIL - Dalam Proses Verifikasi Pembayaran</p>
+                </div>
+                <div class="mt-6 text-sm text-gray-500">
+                    <p><strong>Catatan:</strong> Ini adalah bukti rangkaian pendaftaran Anda. Informasi mengenai step selanjutnya (kisi-kisi, jadwal tes dll ) akan dikirimkan melalui <strong>WhatsApp Utama</strong> yang terdaftar.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Information Popup/Modal -->
+    <div id="info-modal" class="modal-overlay p-4">
+        <div class="modal-content max-w-xl w-full bg-white p-6 sm:p-8 rounded-2xl shadow-2xl border border-blue-100">
+            <span id="close-modal-btn" class="modal-close-btn text-gray-400 hover:text-gray-700 transition">&times;</span>
+            
+            <!-- Logo diletakkan di paling atas -->
+            <div class="text-center mb-4">
+                <img src="https://iili.io/FsLlXA7.png" alt="Logo Malika Islamic Boarding School" class="h-14 mx-auto">
+            </div>
+
+            <!-- Informasi Persiapan Data ditaruh di atas judul -->
+            <div class="mb-6 p-4 rounded-xl bg-amber-50 border border-amber-200 text-left">
+                <p class="font-bold text-amber-900 text-xs sm:text-sm mb-2">
+                    📌 Sebelum Anda mengisi formulir online ini, mohon siapkan data berikut:
+                </p>
+                <ul class="list-disc list-inside space-y-1.5 text-xs sm:text-sm text-amber-900/90 leading-relaxed">
+                    <li>Email aktif orang tua</li>
+                    <li>Pas photo terbaik untuk ID Card peserta seleksi <span class="italic">(Putra boleh berpeci atau tidak, Putri wajib berjilbab dengan warna bebas)</span></li>
+                    <li>NISN dan NIK calon santri</li>
+                    <li>Tinggi badan dan berat badan calon santri</li>
+                </ul>
+            </div>
+
+            <!-- Judul Tahapan dipindah ke bawah kartu peringatan -->
+            <div class="text-center mb-6">
+                <h2 class="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 bg-clip-text text-transparent tracking-tight">Tahapan</h2>
+                <p class="text-xs sm:text-sm font-bold text-blue-900 mt-1">Pendaftaran Santri Baru Malika Islamic Boarding School</p>
+            </div>
+
+            <div class="space-y-5 my-4">
+                <!-- Tahap 01 -->
+                <div class="flex items-start gap-4 p-3 rounded-xl bg-blue-50/60 border border-blue-100">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-blue-500 leading-none select-none w-12 text-center shrink-0">01</div>
+                    <div>
+                        <h3 class="font-bold text-gray-900 text-sm sm:text-base leading-snug">Registrasi dan Pembayaran Formulir</h3>
+                        <p class="text-xs sm:text-sm text-gray-600 italic mt-1 leading-relaxed">Mengisi form online dan melakukan pembayaran formulir</p>
+                    </div>
+                </div>
+
+                <!-- Tahap 02 -->
+                <div class="flex items-start gap-4 p-3 rounded-xl bg-indigo-50/60 border border-indigo-100">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-indigo-400 leading-none select-none w-12 text-center shrink-0">02</div>
+                    <div>
+                        <h3 class="font-bold text-gray-900 text-sm sm:text-base leading-snug">Mendapat Nomor Registrasi</h3>
+                        <p class="text-xs sm:text-sm text-gray-600 italic mt-1 leading-relaxed">Selanjutnya, sistem akan mengirimkan no registrasi.</p>
+                    </div>
+                </div>
+
+                <!-- Tahap 03 -->
+                <div class="flex items-start gap-4 p-3 rounded-xl bg-purple-50/60 border border-purple-100">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-purple-400 leading-none select-none w-12 text-center shrink-0">03</div>
+                    <div>
+                        <h3 class="font-bold text-gray-900 text-sm sm:text-base leading-snug">Tes Seleksi</h3>
+                        <p class="text-xs sm:text-sm text-gray-600 italic mt-1 leading-relaxed">Calon santri akan mengikuti tes seleksi masuk pada jadwal yang akan ditentukan oleh Panitia PSB</p>
+                    </div>
+                </div>
+
+                <!-- Tahap 04 -->
+                <div class="flex items-start gap-4 p-3 rounded-xl bg-pink-50/60 border border-pink-100">
+                    <div class="text-3xl sm:text-4xl font-extrabold text-pink-400 leading-none select-none w-12 text-center shrink-0">04</div>
+                    <div>
+                        <h3 class="font-bold text-gray-900 text-sm sm:text-base leading-snug">Pengumuman Hasil Seleksi</h3>
+                        <p class="text-xs sm:text-sm text-gray-600 italic mt-1 leading-relaxed">Admin akan mengirimkan hasil seleksi dan jika lulus, orang tua harus segera melunasi seluruh biaya pendaftaran paling lambat 14 hari setelahnya</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-6 pt-2">
+                 <button id="close-modal-btn2" class="w-full sm:w-auto bg-blue-700 text-white font-bold py-3 px-8 rounded-xl hover:bg-blue-800 transition duration-300 shadow-md">Mengerti, Lanjutkan Pendaftaran</button>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="text-center py-6 mt-12 text-sm text-gray-500">
+        <p>&copy; 2026 Malika Islamic Boarding School. All rights reserved.</p>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // --- PENTING ---
+    // GANTI DENGAN URL GOOGLE APPS SCRIPT ANDA
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwMtPaOXpAXM8gHNzuDqewwdh_utHFqt1LyDif5g9bDZuN7a2SQiJue4vZqrEJlK1Ar/exec'; 
+    // -----------------
+
+    // Generate Kode Unik Pembayaran (1 - 600)
+    const baseAmount = 500000;
+    const randomCode = Math.floor(Math.random() * 600) + 1; // Menghasilkan angka acak 1 sampai 600
+    const totalAmount = baseAmount + randomCode;
+    
+    // Format nominal ke format Rupiah (misal: 500.123)
+    const formattedAmount = totalAmount.toLocaleString('id-ID');
+    
+    // Set nominal ke tampilan dan input tersembunyi
+    document.getElementById('nominal-display').textContent = formattedAmount;
+    document.getElementById('nominal_transfer').value = totalAmount;
+
+    // Elements selection
+    const infoModal = document.getElementById('info-modal');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+    const closeModalBtn2 = document.getElementById('close-modal-btn2');
+    
+    const paymentSection = document.getElementById('payment-section');
+    const paymentConfirmBtn = document.getElementById('payment-confirm-btn');
+    const paymentProofInput = document.getElementById('payment-proof');
+    const fileError = document.getElementById('file-error');
+
+    const formSection = document.getElementById('form-section');
+    const registrationForm = document.getElementById('registration-form');
+    const pasFotoInput = document.getElementById('pas_foto');
+    const submitBtn = document.getElementById('submit-btn');
+    const submitBtnText = document.getElementById('submit-btn-text');
+    const submitLoader = document.getElementById('submit-loader');
+
+    const receiptSection = document.getElementById('receipt-section');
+    const receiptRegNum = document.getElementById('receipt-reg-num');
+    const receiptData = document.getElementById('receipt-data');
+
+    const copyBtn = document.getElementById('copy-btn');
+    const accountNumber = document.getElementById('account-number');
+    const copyText = document.getElementById('copy-text');
+
+    // Functions
+    const proceedToPayment = () => {
+        infoModal.style.display = 'none';
+        paymentSection.style.display = 'block';
+    };
+
+    const convertFileToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            if (!file) {
+                resolve(null); // Resolve with null if no file is provided
+                return;
+            }
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve({
+                base64: reader.result.split(',')[1],
+                type: file.type,
+                name: file.name
+            });
+            reader.onerror = error => reject(error);
+        });
+    };
+    
+    // Event Listeners
+    closeModalBtn.addEventListener('click', proceedToPayment);
+    closeModalBtn2.addEventListener('click', proceedToPayment);
+
+    copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(accountNumber.textContent).then(() => {
+            copyText.textContent = 'Tersalin!';
+            setTimeout(() => { copyText.textContent = 'Salin'; }, 2000);
+        });
+    });
+
+    paymentConfirmBtn.addEventListener('click', () => {
+        if (paymentProofInput.files.length === 0) {
+            fileError.classList.remove('hidden');
+            return;
+        }
+        fileError.classList.add('hidden');
+        paymentSection.style.display = 'none';
+        formSection.style.display = 'block';
+        window.scrollTo(0, 0);
+    });
+
+    paymentProofInput.addEventListener('change', () => {
+        if (paymentProofInput.files.length > 0) fileError.classList.add('hidden');
+    });
+
+    registrationForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        if (SCRIPT_URL === 'PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE' || SCRIPT_URL.trim() === '') {
+            alert('Error: URL Google Apps Script belum dimasukkan. Silakan ikuti panduan pengaturan.');
+            return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtnText.classList.add('hidden');
+        submitLoader.classList.remove('hidden');
+        
+        try {
+            const paymentProofFile = paymentProofInput.files[0];
+            const pasFotoFile = pasFotoInput.files[0];
+
+            // Convert both files to base64
+            const [paymentProofData, pasFotoData] = await Promise.all([
+                convertFileToBase64(paymentProofFile),
+                convertFileToBase64(pasFotoFile)
+            ]);
+
+            const formData = new FormData(registrationForm);
+            // Hapus file biner asli agar tidak bentrok saat diubah ke JSON
+            formData.delete('pas_foto');
+            
+            const formDataObject = Object.fromEntries(formData.entries());
+            
+            // Add base64 file data to the object being sent
+            formDataObject.paymentProofFile = JSON.stringify(paymentProofData);
+            formDataObject.pasFotoFile = JSON.stringify(pasFotoData);
+
+            const response = await fetch(SCRIPT_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'text/plain;charset=utf-8' // Penting: Mencegah error CORS Preflight dari browser
+                },
+                body: JSON.stringify(formDataObject)
+            });
+
+            if (!response.ok) {
+                throw new Error(`Server error: ${response.status} ${response.statusText}`);
+            }
+
+            let result;
+            try {
+                result = await response.json();
+            } catch (parseError) {
+                throw new Error('Respons server tidak valid. Pastikan Deploy Apps Script disetel ke "Siapa Saja (Anyone)".');
+            }
+
+            if (result.status === 'success') {
+                displayReceipt(formDataObject, result.registrationNumber);
+            } else {
+                throw new Error(result.message || 'Terjadi kesalahan internal pada server.');
+            }
+
+        } catch (error) {
+            console.error('Error!', error.message);
+            let friendlyMessage = 'Gagal mengirim pendaftaran. Silakan coba lagi. \n\nDetail Error: ' + error.message;
+            if (error.message.includes('openById')) {
+                friendlyMessage = 'GAGAL TERHUBUNG KE GOOGLE SHEET.\n\nPastikan Anda sudah mengganti "MASUKKAN_ID_GOOGLE_SHEET_ANDA_DI_SINI" dengan ID asli di file Code.gs';
+            } else if (error.message.includes('getFolderById')) {
+                friendlyMessage = 'GAGAL TERHUBUNG KE GOOGLE DRIVE.\n\nPastikan Anda sudah mengganti "MASUKKAN_ID_FOLDER_GOOGLE_DRIVE_ANDA_DI_SINI" dengan ID asli di file Code.gs';
+            }
+            alert(friendlyMessage);
+        } finally {
+            submitBtn.disabled = false;
+            submitBtnText.classList.remove('hidden');
+            submitLoader.classList.add('hidden');
+        }
+    });
+
+    function displayReceipt(data, regNum) {
+        receiptRegNum.textContent = regNum;
+        
+        const createReceiptItem = (label, value) => {
+            if (value && String(value).trim() !== '' && !value.startsWith('--') && !value.startsWith('Pendidikan') && !value.startsWith('Penghasilan')) {
+                const div = document.createElement('div');
+                div.innerHTML = `<strong class="font-medium text-gray-600">${label}:</strong><br>${value}`;
+                receiptData.appendChild(div);
+            }
+        };
+
+        receiptData.innerHTML = ''; 
+        
+        createReceiptItem('Nominal Transfer', 'Rp ' + Number(data.nominal_transfer).toLocaleString('id-ID'));
+        createReceiptItem('Jenjang Pendidikan', data.jenjang);
+        createReceiptItem('Nama Lengkap', data.nama_lengkap);
+        createReceiptItem('Email Orang tua', data.email_utama);
+        createReceiptItem('Nomor WhatsApp Ayah/Bunda', data.kontak_utama_wa);
+        createReceiptItem('Jenis Kelamin', data.jenis_kelamin);
+        createReceiptItem('NISN', data.nisn);
+        createReceiptItem('NIK', data.nik);
+        createReceiptItem('Tempat, Tgl Lahir', `${data.tempat_lahir}, ${new Date(data.tanggal_lahir).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' })}`);
+        createReceiptItem('Sekolah Asal', data.sekolah_asal);
+        createReceiptItem('Tinggi & Berat Badan', `${data.tinggi_badan || '-'} cm / ${data.berat_badan || '-'} kg`);
+        createReceiptItem('Alamat', `${data.alamat}, ${data.kelurahan}, ${data.kecamatan}, ${data.kabupaten}, ${data.provinsi}`);
+        createReceiptItem('Nama Ayah', data.ayah_nama);
+        createReceiptItem('WhatsApp Ayah', data.ayah_wa);
+        createReceiptItem('Nama Ibu', data.ibu_nama);
+        createReceiptItem('WhatsApp Ibu', data.ibu_wa);
+        createReceiptItem('Nama Wali', data.wali_nama);
+        
+        const proofFile = paymentProofInput.files[0];
+        if (proofFile) createReceiptItem('Bukti Pembayaran', proofFile.name);
+
+        const photoFile = pasFotoInput.files[0];
+        if (photoFile) createReceiptItem('Pas Foto', pasFotoInput.name);
+
+        formSection.style.display = 'none';
+        receiptSection.style.display = 'block';
+        window.scrollTo(0, 0);
+    }
+});
+</script>
+
+</body>
+</html>
