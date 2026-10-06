@@ -128,11 +128,11 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label for="jenjang" class="block text-sm font-medium text-gray-700">Pilihan Jenjang Pendidikan <span class="text-red-500">*</span></label>
-                            <select id="jenjang" name="jenjang" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"><option value="" disabled selected>-- Pilih Jenjang --</option><option value="SMP">SMP</option><option value="SMA">SMA</option></select>
+                            <label for="jenjang" class="block text-sm font-medium text-gray-700">Pilihan Jenjang Pendidikan di Malika <span class="text-red-500">*</span></label>
+                            <select id="jenjang" name="jenjang" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"><option value="" disabled selected>-- Pilih Jenjang --</option><option value="SMP">SMP Malika</option><option value="SMA">SMA Malika</option></select>
                         </div>
                         <div>
-                            <label for="nama_lengkap" class="block text-sm font-medium text-gray-700">Nama Lengkap <span class="text-red-500">*</span></label>
+                            <label for="nama_lengkap" class="block text-sm font-medium text-gray-700">Nama Calon Santri (Sesuai Ijazah/Akta Kelahiran) <span class="text-red-500">*</span></label>
                             <input type="text" id="nama_lengkap" name="nama_lengkap" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         </div>
                          <div>
@@ -200,7 +200,11 @@
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div>
                         <h3 class="text-lg font-semibold text-gray-700 mb-4">B. Data Ayah</h3>
-                        <div class="space-y-4"><input type="text" name="ayah_nama" placeholder="Nama Ayah" required class="w-full px-3 py-2 border border-gray-300 rounded-md"><input type="tel" name="ayah_wa" placeholder="Nomor WhatsApp Ayah" required class="w-full px-3 py-2 border border-gray-300 rounded-md"><input type="text" name="ayah_pekerjaan" placeholder="Pekerjaan" class="w-full px-3 py-2 border border-gray-300 rounded-md"><select name="ayah_pendidikan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md"><option>Pendidikan</option><option>SD</option><option>SMP</option><option>SMA</option><option>D1-D3</option><option>S1</option><option>S2</option><option>S3</option></select><select name="ayah_penghasilan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md"><option>Penghasilan Bulanan</option><option>&lt; 1 Juta</option><option>1 - 3 Juta</option><option>3 - 5 Juta</option><option>5 - 10 Juta</option><option>&gt; 10 Juta</option></select></div>
+                        <div class="space-y-4"><input type="text" name="ayah_nama" placeholder="Nama Ayah" required class="w-full px-3 py-2 border border-gray-300 rounded-md"><input type="tel" name="ayah_wa" placeholder="Nomor WhatsApp Ayah" required class="w-full px-3 py-2 border border-gray-300 rounded-md"><input type="text" name="ayah_pekerjaan" placeholder="Pekerjaan" class="w-full px-3 py-2 border border-gray-300 rounded-md"><select name="ayah_pendidikan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md"><option>Pendidikan</option><option>SD</option><option>SMP</option><option>SMA</option><option>D1-D3</option><option>S1</option><option>S2</option><option>S3</option></select><select name="ayah_penghasilan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md"><option>Penghasilan Bulanan</option><option>3 - 5 Juta</option><option>5 - 10 Juta</option><option>&gt; 10 Juta</option><option>&gt; 20 Juta</option></select></div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4">C. Data Ibu</h3>
+                        <div class="space-y-4"><input type="text" name="ibu_nama" placeholder="Nama Ibu" required class="w-full px-3 py-2 border border-gray-300 rounded-md"><input type="tel" name="ibu_wa" placeholder="Nomor WhatsApp Ibu" class="w-full px-3 py-2 border border-gray-300 rounded-md"><input type="text" name="ibu_pekerjaan" placeholder="Pekerjaan" class="w-full px-3 py-2 border border-gray-300 rounded-md"><select name="ibu_pendidikan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md"><option>Pendidikan</option><option>SD</option><option>SMP</option><option>SMA</option><option>D1-D3</option><option>S1</option><option>S2</option><option>S3</option></select><select name="ibu_penghasilan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md"><option>Penghasilan Bulanan</option><option>3 - 5 Juta</option><option>5 - 10 Juta</option><option>&gt; 10 Juta</option><option>&gt; 20 Juta</option></select></div>
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-gray-700 mb-4">C. Data Ibu</h3>
@@ -208,7 +212,7 @@
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-gray-700 mb-4">D. Data Wali (Jika Ada)</h3>
-                        <div class="space-y-4"><input type="text" name="wali_nama" placeholder="Nama Wali" class="w-full px-3 py-2 border border-gray-300 rounded-md"><input type="email" name="wali_email" placeholder="Email Wali" class="w-full px-3 py-2 border border-gray-300 rounded-md"><input type="text" name="wali_pekerjaan" placeholder="Pekerjaan" class="w-full px-3 py-2 border border-gray-300 rounded-md"><select name="wali_pendidikan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md"><option>Pendidikan</option><option>SD</option><option>SMP</option><option>SMA</option><option>D1-D3</option><option>S1</option><option>S2</option><option>S3</option></select><select name="wali_penghasilan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md"><option>Penghasilan Bulanan</option><option>&lt; 1 Juta</option><option>1 - 3 Juta</option><option>3 - 5 Juta</option><option>5 - 10 Juta</option><option>&gt; 10 Juta</option></select></div>
+                        <div class="space-y-4"><input type="text" name="wali_nama" placeholder="Nama Wali" class="w-full px-3 py-2 border border-gray-300 rounded-md"><input type="email" name="wali_email" placeholder="Email Wali" class="w-full px-3 py-2 border border-gray-300 rounded-md"><input type="text" name="wali_pekerjaan" placeholder="Pekerjaan" class="w-full px-3 py-2 border border-gray-300 rounded-md"><select name="wali_pendidikan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md"><option>Pendidikan</option><option>SD</option><option>SMP</option><option>SMA</option><option>D1-D3</option><option>S1</option><option>S2</option><option>S3</option></select><select name="wali_penghasilan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md"><option>Penghasilan Bulanan</option><option>3 - 5 Juta</option><option>5 - 10 Juta</option><option>&gt; 10 Juta</option><option>&gt; 20 Juta</option></select></div>
                     </div>
                 </div>
 
@@ -273,7 +277,7 @@
             <div id="receipt-printable" class="bg-white p-8 rounded-lg shadow-lg max-w-3xl mx-auto">
                 <div class="text-center border-b-2 border-dashed pb-4 mb-4">
                     <img src="https://iili.io/FsLlXA7.png" alt="Logo" class="h-20 mx-auto mb-2">
-                    <h2 class="text-2xl font-bold text-blue-800">Bukti Rangkaian Pendaftaran Santri Baru</h2>
+                    <h2 class="text-2xl font-bold text-blue-800">Bukti Registrasi Santri Baru</h2>
                     <p class="text-gray-600">Malika Islamic Boarding School</p>
                 </div>
                 <div class="text-center bg-blue-50 p-4 rounded-lg mb-6">
@@ -351,7 +355,7 @@
                     <div class="text-3xl sm:text-4xl font-extrabold text-indigo-400 leading-none select-none w-12 text-center shrink-0">02</div>
                     <div>
                         <h3 class="font-bold text-gray-900 text-sm sm:text-base leading-snug">Mendapat Nomor Registrasi</h3>
-                        <p class="text-xs sm:text-sm text-gray-600 italic mt-1 leading-relaxed">Selanjutnya, sistem akan mengirimkan no registrasi.</p>
+                        <p class="text-xs sm:text-sm text-gray-600 italic mt-1 leading-relaxed">Selanjutnya, sistem akan mengirimkan nomor registrasi.</p>
                     </div>
                 </div>
 
@@ -360,7 +364,7 @@
                     <div class="text-3xl sm:text-4xl font-extrabold text-purple-400 leading-none select-none w-12 text-center shrink-0">03</div>
                     <div>
                         <h3 class="font-bold text-gray-900 text-sm sm:text-base leading-snug">Tes Seleksi</h3>
-                        <p class="text-xs sm:text-sm text-gray-600 italic mt-1 leading-relaxed">Calon santri akan mengikuti tes seleksi masuk pada jadwal yang akan ditentukan oleh Panitia PSB</p>
+                        <p class="text-xs sm:text-sm text-gray-600 italic mt-1 leading-relaxed">Calon santri akan mengikuti tes seleksi akademik dan Al Qur’an pada 19 atau 20 Desember ( pembagian hari akan diinformasikan selanjutnya )</p>
                     </div>
                 </div>
 
@@ -369,7 +373,8 @@
                     <div class="text-3xl sm:text-4xl font-extrabold text-pink-400 leading-none select-none w-12 text-center shrink-0">04</div>
                     <div>
                         <h3 class="font-bold text-gray-900 text-sm sm:text-base leading-snug">Pengumuman Hasil Seleksi</h3>
-                        <p class="text-xs sm:text-sm text-gray-600 italic mt-1 leading-relaxed">Admin akan mengirimkan hasil seleksi dan jika lulus, orang tua harus segera melunasi seluruh biaya pendaftaran paling lambat 14 hari setelahnya</p>
+                        <p class="text-xs sm:text-sm text-gray-600 italic mt-1 leading-relaxed">Bagi calon santri yang dinyatakan lulus, maka orang tua harus segera melunasi seluruh biaya pendaftaran <strong>paling lambat 14 hari setelahnya</strong> lalu akan mendapatkan link pengukuran seragam dan jadwal psikotes</p>
+                        <p class="text-xs sm:text-sm font-semibold text-pink-700 mt-1.5 flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-calendar-check shrink-0" viewBox="0 0 16 16"><path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg> Estimasi Pengumuman Kelulusan pada Rabu, 6 Januari 2027.</p>
                     </div>
                 </div>
             </div>
@@ -692,26 +697,13 @@ document.addEventListener('DOMContentLoaded', () => {
         createReceiptItem('Nominal Transfer', 'Rp ' + Number(data.nominal_transfer).toLocaleString('id-ID'));
         createReceiptItem('Jenjang Pendidikan', data.jenjang);
         createReceiptItem('Nama Lengkap', data.nama_lengkap);
-        createReceiptItem('Email Orang tua', data.email_utama);
-        createReceiptItem('Nomor WhatsApp Ayah/Bunda', data.kontak_utama_wa);
         createReceiptItem('Jenis Kelamin', data.jenis_kelamin);
         createReceiptItem('NISN', data.nisn);
-        createReceiptItem('NIK', data.nik);
         createReceiptItem('Tempat, Tgl Lahir', `${data.tempat_lahir}, ${new Date(data.tanggal_lahir).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' })}`);
         createReceiptItem('Sekolah Asal', data.sekolah_asal);
-        createReceiptItem('Tinggi & Berat Badan', `${data.tinggi_badan || '-'} cm / ${data.berat_badan || '-'} kg`);
         createReceiptItem('Alamat', `${data.alamat}, ${data.kelurahan}, ${data.kecamatan}, ${data.kabupaten}, ${data.provinsi}`);
         createReceiptItem('Nama Ayah', data.ayah_nama);
-        createReceiptItem('WhatsApp Ayah', data.ayah_wa);
         createReceiptItem('Nama Ibu', data.ibu_nama);
-        createReceiptItem('WhatsApp Ibu', data.ibu_wa);
-        createReceiptItem('Nama Wali', data.wali_nama);
-        
-        const proofFile = paymentProofInput.files[0];
-        if (proofFile) createReceiptItem('Bukti Pembayaran', proofFile.name);
-
-        const photoFile = pasFotoInput.files[0];
-        if (photoFile) createReceiptItem('Pas Foto', pasFotoInput.name);
 
         formSection.style.display = 'none';
         receiptSection.style.display = 'block';
