@@ -54,9 +54,40 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        
+        .fullscreen-loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            backdrop-filter: blur(5px);
+        }
+        .large-spinner {
+            border: 5px solid #e5e7eb;
+            border-top: 5px solid #2563eb;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
+
+    <!-- Fullscreen Loader (Hidden by default) -->
+    <div id="fullscreen-loader" class="fullscreen-loader-overlay hidden">
+        <div class="large-spinner"></div>
+        <h2 class="text-2xl font-extrabold text-blue-900 mb-2">Memproses Pendaftaran...</h2>
+        <p class="text-gray-600 font-medium text-center px-6">Mohon tunggu sebentar dan <span class="text-red-500 font-bold">jangan tutup</span> halaman ini.<br><span class="text-sm font-normal">Sistem sedang mengunggah dokumen Anda dengan aman.</span></p>
+    </div>
 
     <!-- Header -->
     <header class="bg-white shadow-md">
@@ -92,7 +123,7 @@
                             <label for="kontak_utama_wa" class="block text-sm font-medium text-gray-800">Nomor WhatsApp Ayah/Bunda (Untuk Informasi PSB) <span class="text-red-500">*</span></label>
                             <input type="tel" id="kontak_utama_wa" name="kontak_utama_wa" placeholder="Contoh: 081234567890" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         </div>
-                        <p class="pt-2 text-xs text-gray-600">Semua informasi pendaftaran (jadwal tes, hasil seleksi, dll.) akan dikirim ke Email atau WhatsApp utama ini.</p>
+                        <p class="pt-2 text-xs text-gray-600">Semua informasi pendaftaran (jadwal tes, hasil seleksi, dll.) akan dikirim ke WhatsApp utama ini.</p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -119,8 +150,15 @@
                         </div>
 
                         <div>
-                            <label for="pas_foto" class="block text-sm font-medium text-gray-700">Pas Foto <span class="text-red-500">*</span></label>
-                            <input type="file" id="pas_foto" name="pas_foto" accept="image/png, image/jpeg, image/jpg" required class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Pas Foto <span class="text-red-500">*</span></label>
+                            <div class="flex items-center space-x-3">
+                                <label for="pas_foto" class="cursor-pointer flex items-center justify-center px-4 py-2 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 hover:border-blue-300 transition-all font-semibold text-sm shadow-sm shrink-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+                                    Pilih File
+                                </label>
+                                <span id="pas_foto_name" class="text-xs text-gray-500 italic truncate w-full">Belum ada file dipilih</span>
+                            </div>
+                            <input type="file" id="pas_foto" name="pas_foto" accept="image/png, image/jpeg, image/jpg" required class="hidden">
                         </div>
                         <div>
                             <label for="nisn" class="block text-sm font-medium text-gray-700">NISN</label>
@@ -196,9 +234,16 @@
                         <p class="text-md text-gray-700">a.n. <strong>Malika Islamic School</strong></p>
                     </div>
 
-                    <div class="mt-6 mb-6">
-                        <label for="payment-proof" class="block text-sm font-medium text-gray-700 text-center">Unggah Bukti Transfer (Nama Calon Santri HARUS disertakan diberita transfer) <span class="text-red-500">*</span></label>
-                        <input type="file" id="payment-proof" name="payment_proof" accept="image/png, image/jpeg, image/jpg" required class="mt-2 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 mx-auto max-w-xs">
+                    <div class="mt-8 mb-6 text-center">
+                        <label class="block text-sm font-medium text-gray-800 mb-3">Unggah Bukti Transfer (Nama Calon Santri HARUS disertakan diberita transfer) <span class="text-red-500">*</span></label>
+                        <div class="flex flex-col items-center justify-center">
+                            <label for="payment-proof" class="cursor-pointer flex items-center justify-center px-6 py-3 bg-blue-50 text-blue-800 rounded-xl border-2 border-dashed border-blue-300 hover:bg-blue-100 hover:border-blue-500 transition-all font-bold text-md shadow-sm w-full max-w-sm group">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-blue-500 group-hover:text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                                Pilih File Bukti Transfer
+                            </label>
+                            <span id="payment_proof_name" class="text-sm text-blue-800 font-medium italic mt-3 bg-blue-100/50 px-3 py-1 rounded-md border border-blue-200 hidden"></span>
+                        </div>
+                        <input type="file" id="payment-proof" name="payment_proof" accept="image/png, image/jpeg, image/jpg" required class="hidden">
                     </div>
                 </div>
 
@@ -234,7 +279,7 @@
                 <div class="text-center bg-blue-50 p-4 rounded-lg mb-6">
                     <p class="text-gray-700">Nomor Registrasi Anda:</p>
                     <p id="receipt-reg-num" class="text-3xl font-bold text-blue-900 tracking-wider"></p>
-                    <p class="text-sm mt-2">Harap simpan nomor ini untuk proses selanjutnya.</p>
+                    <p class="text-sm mt-2">Harap simpan nomor ini atau screen shoot halaman ini untuk proses selanjutnya.</p>
                 </div>
 
                 <h3 class="font-semibold text-gray-800 mb-2 text-lg">Detail Pendaftar:</h3>
@@ -261,15 +306,27 @@
             </div>
 
             <!-- Informasi Persiapan Data ditaruh di atas judul -->
-            <div class="mb-6 p-4 rounded-xl bg-amber-50 border border-amber-200 text-left">
-                <p class="font-bold text-amber-900 text-xs sm:text-sm mb-2">
-                    📌 Sebelum Anda mengisi formulir online ini, mohon siapkan data berikut:
+            <div class="mb-6 p-5 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-100 border border-blue-200 text-left shadow-sm">
+                <p class="font-bold text-blue-900 text-sm mb-3">
+                    Sebelum Anda mengisi formulir online ini, mohon siapkan data berikut:
                 </p>
-                <ul class="list-disc list-inside space-y-1.5 text-xs sm:text-sm text-amber-900/90 leading-relaxed">
-                    <li>Email aktif orang tua</li>
-                    <li>Pas photo terbaik untuk ID Card peserta seleksi <span class="italic">(Putra boleh berpeci atau tidak, Putri wajib berjilbab dengan warna bebas)</span></li>
-                    <li>NISN dan NIK calon santri</li>
-                    <li>Tinggi badan dan berat badan calon santri</li>
+                <ul class="space-y-2.5 text-xs sm:text-sm text-blue-900/90 leading-relaxed">
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-green-500 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        <span>Email aktif orang tua</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-green-500 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        <span>Pas photo terbaik untuk ID Card peserta seleksi <span class="italic text-blue-800/80">(Putra boleh berpeci atau tidak, Putri wajib berjilbab dengan warna bebas)</span></span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-green-500 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        <span>NISN dan NIK calon santri</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 text-green-500 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        <span>Tinggi badan dan berat badan calon santri</span>
+                    </li>
                 </ul>
             </div>
 
@@ -352,10 +409,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModalBtn2 = document.getElementById('close-modal-btn2');
     
     const paymentProofInput = document.getElementById('payment-proof');
+    const paymentProofName = document.getElementById('payment_proof_name');
 
     const formSection = document.getElementById('form-section');
     const registrationForm = document.getElementById('registration-form');
+    
     const pasFotoInput = document.getElementById('pas_foto');
+    const pasFotoName = document.getElementById('pas_foto_name');
     const submitBtn = document.getElementById('submit-btn');
     const submitBtnText = document.getElementById('submit-btn-text');
     const submitLoader = document.getElementById('submit-loader');
@@ -367,6 +427,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const copyBtn = document.getElementById('copy-btn');
     const accountNumber = document.getElementById('account-number');
     const copyText = document.getElementById('copy-text');
+    
+    // Elemen Loader Baru
+    const fullscreenLoader = document.getElementById('fullscreen-loader');
 
     // ==========================================
     // ⚙️ PENGATURAN KUOTA (SINKRON DARI GOOGLE SHEET)
@@ -439,19 +502,71 @@ document.addEventListener('DOMContentLoaded', () => {
         formSection.style.display = 'block';
     };
 
-    const convertFileToBase64 = (file) => {
+    // Fungsi kompresi gambar sebelum dikirim ke Google Script
+    const compressImage = (file, maxWidth = 800, quality = 0.7) => {
         return new Promise((resolve, reject) => {
             if (!file) {
-                resolve(null); // Resolve with null if no file is provided
+                resolve(null);
                 return;
             }
+
+            // Jika bukan gambar (misal pdf, walau sudah dibatasi di HTML), kembalikan base64 asli
+            if (!file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve({
+                    base64: reader.result.split(',')[1],
+                    type: file.type,
+                    name: file.name
+                });
+                reader.onerror = error => reject(error);
+                return;
+            }
+
+            // Proses Kompresi Gambar menggunakan Canvas HTML5
             const reader = new FileReader();
             reader.readAsDataURL(file);
-            reader.onload = () => resolve({
-                base64: reader.result.split(',')[1],
-                type: file.type,
-                name: file.name
-            });
+            reader.onload = (event) => {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+
+                    // Kalkulasi rasio ukuran baru (Maksimal width/height 800px)
+                    if (width > height) {
+                        if (width > maxWidth) {
+                            height = Math.round((height *= maxWidth / width));
+                            width = maxWidth;
+                        }
+                    } else {
+                        if (height > maxWidth) {
+                            width = Math.round((width *= maxWidth / height));
+                            height = maxWidth;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    // Konversi ke JPEG dengan kualitas 70% (0.7)
+                    const dataUrl = canvas.toDataURL('image/jpeg', quality);
+                    const base64Data = dataUrl.split(',')[1];
+                    
+                    // Ganti nama ekstensi jadi .jpg
+                    const newName = file.name.replace(/\.[^/.]+$/, "") + "_compressed.jpg";
+
+                    resolve({
+                        base64: base64Data,
+                        type: 'image/jpeg',
+                        name: newName
+                    });
+                };
+                img.onerror = error => reject(error);
+            };
             reader.onerror = error => reject(error);
         });
     };
@@ -467,6 +582,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    pasFotoInput.addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+            pasFotoName.textContent = this.files[0].name;
+            pasFotoName.classList.remove('italic', 'text-gray-500');
+            pasFotoName.classList.add('text-blue-700', 'font-medium');
+        } else {
+            pasFotoName.textContent = 'Belum ada file dipilih';
+            pasFotoName.classList.add('italic', 'text-gray-500');
+            pasFotoName.classList.remove('text-blue-700', 'font-medium');
+        }
+    });
+
+    paymentProofInput.addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+            paymentProofName.textContent = this.files[0].name;
+            paymentProofName.classList.remove('hidden');
+        } else {
+            paymentProofName.textContent = '';
+            paymentProofName.classList.add('hidden');
+        }
+    });
+
     registrationForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
@@ -475,24 +612,24 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Tampilkan Fullscreen Loader
+        fullscreenLoader.classList.remove('hidden');
         submitBtn.disabled = true;
-        submitBtnText.classList.add('hidden');
-        submitLoader.classList.remove('hidden');
         
         try {
             const paymentProofFile = paymentProofInput.files[0];
             const pasFotoFile = pasFotoInput.files[0];
 
-            // Convert both files to base64
+            // Mengompres foto secara bersamaan sebelum diubah ke format JSON
             const [paymentProofData, pasFotoData] = await Promise.all([
-                convertFileToBase64(paymentProofFile),
-                convertFileToBase64(pasFotoFile)
+                compressImage(paymentProofFile),
+                compressImage(pasFotoFile)
             ]);
 
             const formData = new FormData(registrationForm);
             // Hapus file biner asli agar tidak bentrok saat diubah ke JSON
             formData.delete('pas_foto');
-            
+            formData.delete('payment_proof');
             const formDataObject = Object.fromEntries(formData.entries());
             
             // Add base64 file data to the object being sent
@@ -534,9 +671,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             alert(friendlyMessage);
         } finally {
+            fullscreenLoader.classList.add('hidden');
             submitBtn.disabled = false;
-            submitBtnText.classList.remove('hidden');
-            submitLoader.classList.add('hidden');
         }
     });
 
