@@ -13,7 +13,6 @@
         }
         .form-section { display: none; }
         .receipt-section { display: none; }
-        .payment-section { display: none; }
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -75,41 +74,9 @@
     <!-- Main Content -->
     <main class="container mx-auto px-6 py-8">
 
-        <!-- Payment Section -->
-        <div id="payment-section" class="payment-section bg-white p-8 rounded-lg shadow-lg max-w-2xl mx-auto">
-            <h2 class="text-2xl font-bold text-center text-blue-800 mb-2">Langkah 1: Pembayaran Formulir</h2>
-            <p class="text-center text-gray-600 mb-4">Silakan lakukan pembayaran biaya pendaftaran melalui transfer ke rekening berikut.</p>
-            
-            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6 rounded-r-lg text-center shadow-sm">
-                <p class="text-sm text-yellow-800 font-medium mb-1">Mohon transfer TEPAT sesuai nominal di bawah ini (hingga 3 digit terakhir) agar sistem dapat mengenali pembayaran Anda:</p>
-                <p class="text-4xl font-extrabold text-blue-900 my-2 tracking-tight">Rp <span id="nominal-display">500.000</span></p>
-            </div>
-
-            <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6 text-center">
-                <p class="text-lg font-semibold text-blue-900">Bank Danamon</p>
-                <div class="flex items-center justify-center my-2 group">
-                    <p id="account-number" class="text-2xl font-bold text-blue-900 mr-3 tracking-wider">008800328612</p>
-                    <button id="copy-btn" class="bg-blue-200 text-blue-800 px-3 py-1.5 rounded-lg text-sm font-semibold hover:bg-blue-300 transition-all duration-200 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard mr-2" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
-                        <span id="copy-text">Salin</span>
-                    </button>
-                </div>
-                <p class="text-md text-gray-700">a.n. <strong>Malika Islamic School</strong></p>
-            </div>
-
-            <div class="mt-6 mb-6">
-                <label for="payment-proof" class="block text-sm font-medium text-gray-700 text-center">Nama Calon Santri HARUS disertakan diberita transfer, contoh : Pembayaran Formulir an. Siti Maryam <span class="text-red-500">*</span></label>
-                <input type="file" id="payment-proof" name="payment_proof" accept="image/png, image/jpeg, image/jpg" required class="mt-2 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 mx-auto max-w-xs">
-                <p id="file-error" class="text-red-500 text-sm text-center mt-1 hidden">Silakan unggah bukti pembayaran.</p>
-            </div>
-            <div class="text-center">
-                <button id="payment-confirm-btn" class="bg-blue-700 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-800 transition duration-300 shadow-md">Unggah Bukti Pembayaran</button>
-            </div>
-        </div>
-
         <!-- Biodata Form Section -->
         <div id="form-section" class="form-section bg-white p-8 rounded-lg shadow-lg max-w-4xl mx-auto">
-            <h2 class="text-2xl font-bold text-center text-blue-800 mb-6">Langkah 2: Formulir Pendaftaran</h2>
+            <h2 class="text-2xl font-bold text-center text-blue-800 mb-6">Formulir Pendaftaran & Pembayaran</h2>
             <form id="registration-form">
                 <!-- Hidden input untuk menyimpan nominal unik -->
                 <input type="hidden" id="nominal_transfer" name="nominal_transfer" value="">
@@ -146,9 +113,9 @@
                         <div id="kuota-warning" class="md:col-span-2 hidden bg-red-50 border border-red-200 p-4 rounded-lg mt-2">
                             <div class="flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-                                <p class="text-sm text-red-800 font-bold">Mohon Maaf, kuota pendaftaran untuk <span id="kuota-terpilih" class="underline"></span> saat ini sudah PENUH/DITUTUP.</p>
+                                <p class="text-sm text-red-800 font-bold">Mohon Maaf, kuota pendaftaran untuk <span id="kuota-terpilih" class="underline"></span> saat ini sudah DITUTUP karena penuh.</p>
                             </div>
-                            <p class="text-xs text-red-600 mt-2 ml-8">Silakan pilih jenjang lain atau hubungi panitia PSB untuk informasi lebih lanjut. Formulir tidak dapat dikirim untuk pilihan ini.</p>
+                            <p class="text-xs text-red-600 mt-2 ml-8">Formulir tidak dapat dikirim jika status pendaftaran tingkat ini sudah ditutup.</p>
                         </div>
 
                         <div>
@@ -207,7 +174,35 @@
                     </div>
                 </div>
 
-                <div class="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <!-- Bagian Pembayaran Pindah Kesini -->
+                <div class="mt-10 border-t pt-8">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-6 text-center">E. Pembayaran Formulir</h3>
+                    <p class="text-center text-gray-600 mb-4">Silakan lakukan pembayaran biaya pendaftaran melalui transfer ke rekening berikut.</p>
+                    
+                    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6 rounded-r-lg text-center shadow-sm max-w-2xl mx-auto">
+                        <p class="text-sm text-yellow-800 font-medium mb-1">Mohon transfer TEPAT sesuai nominal di bawah ini (hingga 3 digit terakhir) agar sistem dapat mengenali pembayaran Anda:</p>
+                        <p class="text-4xl font-extrabold text-blue-900 my-2 tracking-tight">Rp <span id="nominal-display">500.000</span></p>
+                    </div>
+
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6 text-center max-w-2xl mx-auto">
+                        <p class="text-lg font-semibold text-blue-900">Bank Danamon</p>
+                        <div class="flex items-center justify-center my-2 group">
+                            <p id="account-number" class="text-2xl font-bold text-blue-900 mr-3 tracking-wider">008800328612</p>
+                            <button type="button" id="copy-btn" class="bg-blue-200 text-blue-800 px-3 py-1.5 rounded-lg text-sm font-semibold hover:bg-blue-300 transition-all duration-200 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard mr-2" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
+                                <span id="copy-text">Salin</span>
+                            </button>
+                        </div>
+                        <p class="text-md text-gray-700">a.n. <strong>Malika Islamic School</strong></p>
+                    </div>
+
+                    <div class="mt-6 mb-6">
+                        <label for="payment-proof" class="block text-sm font-medium text-gray-700 text-center">Unggah Bukti Transfer (Nama Calon Santri HARUS disertakan diberita transfer) <span class="text-red-500">*</span></label>
+                        <input type="file" id="payment-proof" name="payment_proof" accept="image/png, image/jpeg, image/jpg" required class="mt-2 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 mx-auto max-w-xs">
+                    </div>
+                </div>
+
+                <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
                     <div class="flex items-start">
                         <div class="flex items-center h-5 mt-0.5">
                             <input id="persetujuan" name="persetujuan" type="checkbox" value="Setuju" required class="w-5 h-5 text-blue-600 bg-white border-gray-300 rounded focus:ring-blue-500 cursor-pointer">
@@ -356,10 +351,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModalBtn = document.getElementById('close-modal-btn');
     const closeModalBtn2 = document.getElementById('close-modal-btn2');
     
-    const paymentSection = document.getElementById('payment-section');
-    const paymentConfirmBtn = document.getElementById('payment-confirm-btn');
     const paymentProofInput = document.getElementById('payment-proof');
-    const fileError = document.getElementById('file-error');
 
     const formSection = document.getElementById('form-section');
     const registrationForm = document.getElementById('registration-form');
@@ -444,7 +436,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Functions
     const proceedToPayment = () => {
         infoModal.style.display = 'none';
-        paymentSection.style.display = 'block';
+        formSection.style.display = 'block';
     };
 
     const convertFileToBase64 = (file) => {
@@ -473,21 +465,6 @@ document.addEventListener('DOMContentLoaded', () => {
             copyText.textContent = 'Tersalin!';
             setTimeout(() => { copyText.textContent = 'Salin'; }, 2000);
         });
-    });
-
-    paymentConfirmBtn.addEventListener('click', () => {
-        if (paymentProofInput.files.length === 0) {
-            fileError.classList.remove('hidden');
-            return;
-        }
-        fileError.classList.add('hidden');
-        paymentSection.style.display = 'none';
-        formSection.style.display = 'block';
-        window.scrollTo(0, 0);
-    });
-
-    paymentProofInput.addEventListener('change', () => {
-        if (paymentProofInput.files.length > 0) fileError.classList.add('hidden');
     });
 
     registrationForm.addEventListener('submit', async (e) => {
