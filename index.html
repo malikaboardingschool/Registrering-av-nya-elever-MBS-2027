@@ -161,8 +161,8 @@
                             <input type="file" id="pas_foto" name="pas_foto" accept="image/png, image/jpeg, image/jpg" required class="hidden">
                         </div>
                         <div>
-                            <label for="nisn" class="block text-sm font-medium text-gray-700">NISN</label>
-                            <input type="number" id="nisn" name="nisn" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <label for="nisn" class="block text-sm font-medium text-gray-700">NISN <span class="text-red-500">*</span></label>
+                            <input type="number" id="nisn" name="nisn" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                             <p class="mt-1 text-xs text-gray-500">Cek NISN di: <a href="https://nisn.data.kemdikbud.go.id/index.php/Cindex/formcaribynama" target="_blank" class="text-blue-600 hover:underline">nisn.data.kemdikbud.go.id</a></p>
                         </div>
                          <div>
@@ -200,19 +200,45 @@
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div>
                         <h3 class="text-lg font-semibold text-gray-700 mb-4">B. Data Ayah</h3>
-                        <div class="space-y-4"><input type="text" name="ayah_nama" placeholder="Nama Ayah" required class="w-full px-3 py-2 border border-gray-300 rounded-md"><input type="tel" name="ayah_wa" placeholder="Nomor WhatsApp Ayah" required class="w-full px-3 py-2 border border-gray-300 rounded-md"><input type="text" name="ayah_pekerjaan" placeholder="Pekerjaan" class="w-full px-3 py-2 border border-gray-300 rounded-md"><select name="ayah_pendidikan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md"><option>Pendidikan</option><option>SD</option><option>SMP</option><option>SMA</option><option>D1-D3</option><option>S1</option><option>S2</option><option>S3</option></select><select name="ayah_penghasilan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md"><option>Penghasilan Bulanan</option><option>3 - 5 Juta</option><option>5 - 10 Juta</option><option>&gt; 10 Juta</option><option>&gt; 20 Juta</option></select></div>
+                        <div class="space-y-4">
+                            <input type="text" name="ayah_nama" placeholder="Nama Ayah *" required class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <input type="tel" name="ayah_wa" placeholder="Nomor WhatsApp Ayah *" required class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <input type="text" name="ayah_pekerjaan" placeholder="Pekerjaan *" required class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <select name="ayah_pendidikan" required class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md">
+                                <option value="" disabled selected>Pendidikan *</option><option value="SD">SD</option><option value="SMP">SMP</option><option value="SMA">SMA</option><option value="D1-D3">D1-D3</option><option value="S1">S1</option><option value="S2">S2</option><option value="S3">S3</option>
+                            </select>
+                            <select name="ayah_penghasilan" required class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md">
+                                <option value="" disabled selected>Penghasilan Bulanan *</option><option value="3 - 5 Juta">3 - 5 Juta</option><option value="5 - 10 Juta">5 - 10 Juta</option><option value="> 10 Juta">&gt; 10 Juta</option><option value="> 20 Juta">&gt; 20 Juta</option>
+                            </select>
+                        </div>
                     </div>
                     <div>
                         <h3 class="text-lg font-semibold text-gray-700 mb-4">C. Data Ibu</h3>
-                        <div class="space-y-4"><input type="text" name="ibu_nama" placeholder="Nama Ibu" required class="w-full px-3 py-2 border border-gray-300 rounded-md"><input type="tel" name="ibu_wa" placeholder="Nomor WhatsApp Ibu" class="w-full px-3 py-2 border border-gray-300 rounded-md"><input type="text" name="ibu_pekerjaan" placeholder="Pekerjaan" class="w-full px-3 py-2 border border-gray-300 rounded-md"><select name="ibu_pendidikan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md"><option>Pendidikan</option><option>SD</option><option>SMP</option><option>SMA</option><option>D1-D3</option><option>S1</option><option>S2</option><option>S3</option></select><select name="ibu_penghasilan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md"><option>Penghasilan Bulanan</option><option>3 - 5 Juta</option><option>5 - 10 Juta</option><option>&gt; 10 Juta</option><option>&gt; 20 Juta</option></select></div>
+                        <div class="space-y-4">
+                            <input type="text" name="ibu_nama" placeholder="Nama Ibu *" required class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <input type="tel" name="ibu_wa" placeholder="Nomor WhatsApp Ibu *" required class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <input type="text" name="ibu_pekerjaan" placeholder="Pekerjaan *" required class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <select name="ibu_pendidikan" required class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md">
+                                <option value="" disabled selected>Pendidikan *</option><option value="SD">SD</option><option value="SMP">SMP</option><option value="SMA">SMA</option><option value="D1-D3">D1-D3</option><option value="S1">S1</option><option value="S2">S2</option><option value="S3">S3</option>
+                            </select>
+                            <select name="ibu_penghasilan" required class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md">
+                                <option value="" disabled selected>Penghasilan Bulanan *</option><option value="3 - 5 Juta">3 - 5 Juta</option><option value="5 - 10 Juta">5 - 10 Juta</option><option value="> 10 Juta">&gt; 10 Juta</option><option value="> 20 Juta">&gt; 20 Juta</option>
+                            </select>
+                        </div>
                     </div>
                     <div>
-                        <h3 class="text-lg font-semibold text-gray-700 mb-4">C. Data Ibu</h3>
-                        <div class="space-y-4"><input type="text" name="ibu_nama" placeholder="Nama Ibu" required class="w-full px-3 py-2 border border-gray-300 rounded-md"><input type="tel" name="ibu_wa" placeholder="Nomor WhatsApp Ibu" class="w-full px-3 py-2 border border-gray-300 rounded-md"><input type="text" name="ibu_pekerjaan" placeholder="Pekerjaan" class="w-full px-3 py-2 border border-gray-300 rounded-md"><select name="ibu_pendidikan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md"><option>Pendidikan</option><option>SD</option><option>SMP</option><option>SMA</option><option>D1-D3</option><option>S1</option><option>S2</option><option>S3</option></select><select name="ibu_penghasilan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md"><option>Penghasilan Bulanan</option><option>&lt; 1 Juta</option><option>1 - 3 Juta</option><option>3 - 5 Juta</option><option>5 - 10 Juta</option><option>&gt; 10 Juta</option></select></div>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-700 mb-4">D. Data Wali (Jika Ada)</h3>
-                        <div class="space-y-4"><input type="text" name="wali_nama" placeholder="Nama Wali" class="w-full px-3 py-2 border border-gray-300 rounded-md"><input type="email" name="wali_email" placeholder="Email Wali" class="w-full px-3 py-2 border border-gray-300 rounded-md"><input type="text" name="wali_pekerjaan" placeholder="Pekerjaan" class="w-full px-3 py-2 border border-gray-300 rounded-md"><select name="wali_pendidikan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md"><option>Pendidikan</option><option>SD</option><option>SMP</option><option>SMA</option><option>D1-D3</option><option>S1</option><option>S2</option><option>S3</option></select><select name="wali_penghasilan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md"><option>Penghasilan Bulanan</option><option>3 - 5 Juta</option><option>5 - 10 Juta</option><option>&gt; 10 Juta</option><option>&gt; 20 Juta</option></select></div>
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4 leading-tight">D. Data Wali <br><span class="text-xs sm:text-sm font-normal text-gray-500 block mt-1">(Jika ada, bagi yang ditanggung bukan oleh orang tua)</span></h3>
+                        <div class="space-y-4">
+                            <input type="text" name="wali_nama" placeholder="Nama Wali" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <input type="email" name="wali_email" placeholder="Email Wali" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <input type="text" name="wali_pekerjaan" placeholder="Pekerjaan" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <select name="wali_pendidikan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md">
+                                <option value="">Pendidikan</option><option value="SD">SD</option><option value="SMP">SMP</option><option value="SMA">SMA</option><option value="D1-D3">D1-D3</option><option value="S1">S1</option><option value="S2">S2</option><option value="S3">S3</option>
+                            </select>
+                            <select name="wali_penghasilan" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md">
+                                <option value="">Penghasilan Bulanan</option><option value="3 - 5 Juta">3 - 5 Juta</option><option value="5 - 10 Juta">5 - 10 Juta</option><option value="> 10 Juta">&gt; 10 Juta</option><option value="> 20 Juta">&gt; 20 Juta</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
@@ -293,14 +319,38 @@
                     <p class="text-green-600 font-bold text-lg">BERHASIL - Dalam Proses Verifikasi Pembayaran</p>
                 </div>
                 <div class="mt-6 text-sm text-gray-500">
-                    <p><strong>Catatan:</strong> Ini adalah bukti rangkaian pendaftaran Anda. Informasi mengenai step selanjutnya (kisi-kisi, jadwal tes dll ) akan dikirimkan melalui <strong>WhatsApp Utama</strong> yang terdaftar.</p>
+                    <p><strong>Catatan:</strong> Ini adalah bukti pendaftaran Anda. Informasi mengenai step selanjutnya (kisi-kisi, jadwal tes dll ) akan dikirimkan melalui <strong>WhatsApp Utama</strong> yang terdaftar.</p>
                 </div>
             </div>
         </div>
     </main>
+
+    <!-- Announcement Pop-up (Muncul Paling Awal) -->
+    <div id="announcement-modal" class="modal-overlay p-4" style="z-index: 1050;">
+        <div class="modal-content max-w-md w-full bg-white p-6 sm:p-8 rounded-2xl shadow-2xl border-t-8 border-red-500 text-center relative">
+            <div class="mb-4 flex justify-center">
+                <div class="bg-red-50 p-4 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                </div>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Pengumuman Penting</h2>
+            <div class="text-gray-600 mb-6 leading-relaxed text-sm text-left">
+                <p class="mb-3 text-center">Terima kasih atas antusiasme Bapak/Ibu yang sangat luar biasa terhadap pendaftaran santri baru Malika Islamic Boarding School.</p>
+                <div class="bg-gray-50 border border-gray-200 p-4 rounded-xl text-center shadow-inner">
+                    <p>Demi menjaga kualitas layanan seleksi dan mempertimbangkan kapasitas penerimaan kami, pendaftaran untuk jenjang <strong class="text-red-600 text-base">SMP Putra dan SMP Putri saat ini resmi DITUTUP</strong>.</p>
+                </div>
+                <p class="mt-4 font-semibold text-blue-800 bg-blue-50 p-3 rounded-lg text-center border border-blue-100">
+                    Pendaftaran saat ini HANYA dibuka untuk jenjang SMA.
+                </p>
+            </div>
+            <button id="close-announcement-btn" class="bg-red-600 text-white font-bold py-3 px-8 rounded-xl hover:bg-red-700 transition duration-300 w-full shadow-md">Saya Mengerti, Lanjutkan</button>
+        </div>
+    </div>
     
-    <!-- Information Popup/Modal -->
-    <div id="info-modal" class="modal-overlay p-4">
+    <!-- Information Popup/Modal (Sekarang disembunyikan di awal) -->
+    <div id="info-modal" class="modal-overlay p-4" style="display: none;">
         <div class="modal-content max-w-xl w-full bg-white p-6 sm:p-8 rounded-2xl shadow-2xl border border-blue-100">
             <span id="close-modal-btn" class="modal-close-btn text-gray-400 hover:text-gray-700 transition">&times;</span>
             
@@ -396,9 +446,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzk2px-jK1T4WQ-axvGDQ0CdGhJw495yVbgyd9ItwMLLMDvO4Too1HuigT19pgG7rZV/exec'; 
     // -----------------
 
-    // Generate Kode Unik Pembayaran (1 - 600)
+    // Generate Kode Unik Pembayaran (1 - 999)
     const baseAmount = 500000;
-    const randomCode = Math.floor(Math.random() * 600) + 1; // Menghasilkan angka acak 1 sampai 600
+    const randomCode = Math.floor(Math.random() * 999) + 1; // Menghasilkan angka acak 1 sampai 999
     const totalAmount = baseAmount + randomCode;
     
     // Format nominal ke format Rupiah (misal: 500.123)
@@ -409,6 +459,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('nominal_transfer').value = totalAmount;
 
     // Elements selection
+    const announcementModal = document.getElementById('announcement-modal');
+    const closeAnnouncementBtn = document.getElementById('close-announcement-btn');
+
     const infoModal = document.getElementById('info-modal');
     const closeModalBtn = document.getElementById('close-modal-btn');
     const closeModalBtn2 = document.getElementById('close-modal-btn2');
@@ -577,6 +630,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     // Event Listeners
+    closeAnnouncementBtn.addEventListener('click', () => {
+        announcementModal.style.display = 'none';
+        infoModal.style.display = 'flex';
+    });
+
     closeModalBtn.addEventListener('click', proceedToPayment);
     closeModalBtn2.addEventListener('click', proceedToPayment);
 
